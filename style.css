@@ -1,0 +1,62 @@
+html {}
+
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+main {
+    display: flex;
+    width: 840px;
+    height: 600px;
+    flex-direction: column;
+    margin: auto;
+}
+
+.flexbox {
+    display: flex;
+    flex-direction: row;
+}
+
+.player {
+    background-color: blue;
+    width: 40px;
+    height: 40px;
+}
+
+.playerO {
+    background-color: blue;
+    width: 40px;
+    height: 40px;
+}
+
+.wall {
+    background-color: black;
+    width: 40px;
+    height: 40px;
+}
+
+.empty {
+    width: 40px;
+    height: 40px;
+}
+
+.box {
+    background-image: url("assets/crate.png");
+    background-size: 100%;
+    width: 40px;
+    height: 40px;
+}
+
+.spot {
+    background-image: url("assets/O.png");
+    background-size: 100%;
+}
+
+.lightBox {
+    background-image: url("assets/crate2.png");
+    background-size: 100%;
+    width: 38px;
+    height: 38px;
+    border: 1px solid black;
+}
