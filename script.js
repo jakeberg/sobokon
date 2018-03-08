@@ -55,8 +55,6 @@ for (let r = 0; r < map.length; r++) {
 
 movePlayer = function (event) {
     let keyStroke = event.key;
-    console.log(crates)
-    console.log(winningArray)
     switch (keyStroke) {
         case "ArrowRight":
             if (map[playerRow][playerCol + 1] !== "W" && crates[playerRow][playerCol + 1] == null) {
