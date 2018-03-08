@@ -1,11 +1,11 @@
 const map = [
     "  WWWWW ",
     "WWW   W ",
-    "WOS   W ",
+    "WOSB  W ",
     "WWW BOW ",
     "WOWWB W ",
     "W W O WW",
-    "WB XB OW",
+    "WB XBBOW",
     "W   O  W",
     "WWWWWWWW"
 ];
@@ -38,7 +38,7 @@ for (let r = 0; r < map.length; r++) {
             cellDiv.className = ("empty spot");
             cellClass.push(null);
         } else if (cell === "X") {
-            cellDiv.className = ("empty");
+            cellDiv.className = ("empty spot");
             cellClass.push("box");
         } else if (cell === "S") {
             cellDiv.className = ("empty");
@@ -47,7 +47,7 @@ for (let r = 0; r < map.length; r++) {
             player.style.left = c * 40 + "px";
             playerRow = r;
             playerCol = c;
-        } 
+        }
         board.appendChild(cellDiv);
     }
     crates.push(cellClass);
@@ -55,6 +55,8 @@ for (let r = 0; r < map.length; r++) {
 
 movePlayer = function (event) {
     let keyStroke = event.key;
+    console.log(crates)
+    console.log(winningArray)
     switch (keyStroke) {
         case "ArrowRight":
             if (map[playerRow][playerCol + 1] !== "W" && crates[playerRow][playerCol + 1] == null) {
@@ -109,7 +111,7 @@ movePlayer = function (event) {
                 playerRow += 1;
                 let moveR = playerRow;
                 player.style.top = moveR * 40 + "px";
-            } else if (crates[playerRow + 1][playerCol] == "box" && map[playerRow + 2][playerCol] !== "W" && crates[playerRow + 2][playerCol] !== "box" ) {
+            } else if (crates[playerRow + 1][playerCol] == "box" && map[playerRow + 2][playerCol] !== "W" && crates[playerRow + 2][playerCol] !== "box") {
                 crates[playerRow + 1][playerCol] = null;
                 crates[playerRow + 2][playerCol] = "box";
                 playerRow += 1;
@@ -123,6 +125,7 @@ movePlayer = function (event) {
         default:
             console.log(keyStroke)
     }
+    checkwin();
 }
 
 document.addEventListener("keydown", movePlayer);
@@ -139,7 +142,9 @@ function move(boxDest) {
                 absoluteCrates.style.top = x * 40 + "px";
                 absoluteCrates.style.left = y * 40 + "px";
                 boxes.appendChild(absoluteCrates);
-            } 
+
+
+            }
         }
     }
 }
@@ -148,5 +153,11 @@ move(crates);
 function reset() {
     while (boxes.firstChild) {
         boxes.removeChild(boxes.firstChild);
+    }
+}
+
+function checkwin() {
+    if (crates[2][1] == "box" && crates[3][5] == "box" && crates[4][1] == "box" && crates[5][4] == "box" && crates[6][3] == "box" && crates[6][6] == "box" && crates[7][4] == "box"){
+        alert("You win!!!")
     }
 }
