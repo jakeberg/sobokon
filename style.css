@@ -51,8 +51,17 @@ body {
 }
 
 
+.covered {
 
+}
 
+#win {
+    display: none;
+    font-size: 200%;
+    position: absolute;
+    top:20px;
+    left: 300px;
+}
 
 
 
