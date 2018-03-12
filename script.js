@@ -74,32 +74,12 @@ document.addEventListener("keydown", (event) => {
             break;
 
         case "ArrowUp":
-            if (map[playerRow - 1][playerCol] !== "W" && crates[playerRow - 1][playerCol] == null) {
-                playerRow -= 1;
-                let moveR = playerRow;
-                player.style.top = moveR * 40 + "px";
-            } else if (crates[playerRow - 1][playerCol] == "box" && map[playerRow - 2][playerCol] !== "W" && crates[playerRow - 2][playerCol] !== "box") {
-                crates[playerRow - 1][playerCol] = null;
-                crates[playerRow - 2][playerCol] = "box";
-                playerRow -= 1;
-                player.style.top = playerRow * 40 + "px";
-                moveBox(crates)
-            }
-            break;
+        playerMove(0, -1, 0, -2)
+        break;
 
         case "ArrowDown":
-            if (map[playerRow + 1][playerCol] !== "W" && crates[playerRow + 1][playerCol] == null) {
-                playerRow += 1;
-                let moveR = playerRow;
-                player.style.top = moveR * 40 + "px";
-            } else if (crates[playerRow + 1][playerCol] == "box" && map[playerRow + 2][playerCol] !== "W" && crates[playerRow + 2][playerCol] !== "box") {
-                crates[playerRow + 1][playerCol] = null;
-                crates[playerRow + 2][playerCol] = "box";
-                playerRow += 1;
-                player.style.top = playerRow * 40 + "px";
-                moveBox(crates)
-            }
-            break;
+        playerMove(0, +1, 0, +2)
+        break;
 
         default:
             console.log(event.key)
@@ -108,21 +88,27 @@ document.addEventListener("keydown", (event) => {
 });
 
 function playerMove(leftOrRight, upOrDown, boundaryCheckLR, boundaryCheckUD) {
-    const checkForWall = map[playerRow][playerCol + leftOrRight] !== "W";
-    const checkForNull = crates[playerRow][playerCol + leftOrRight] == null;
-    const checkForBox = crates[playerRow][playerCol + leftOrRight] == "box";
+    const checkForWall = map[playerRow + upOrDown][playerCol + leftOrRight] !== "W";
+    const checkForNull = crates[playerRow + upOrDown][playerCol + leftOrRight] == null;
+    const checkForBox = crates[playerRow + upOrDown][playerCol + leftOrRight] == "box";
+
     const checkForExtraBox = crates[playerRow + boundaryCheckUD][playerCol + boundaryCheckLR] !== "box";
-    const checkForWallTwo = map[playerRow + boundaryCheckUD][playerCol + boundaryCheckLR] !== "W"
+    const checkForWallTwo = map[playerRow + boundaryCheckUD][playerCol + boundaryCheckLR] !== "W";
     
     if (checkForWall && checkForNull) {
         playerCol += leftOrRight;
         player.style.left = playerCol * 40 + "px";
+        playerRow += upOrDown;
+        player.style.top = playerRow * 40 +"px";
 
     } else if (checkForWall && checkForBox && checkForExtraBox && checkForWallTwo) {
-        crates[playerRow][playerCol + leftOrRight] = null;
-        crates[playerRow][playerCol + boundaryCheckLR] = "box";
+        crates[playerRow + upOrDown][playerCol + leftOrRight] = null;
+        crates[playerRow + boundaryCheckUD][playerCol + boundaryCheckLR] = "box";
+
         playerCol += leftOrRight;
+        playerRow += upOrDown;
         player.style.left = playerCol * 40 + "px";
+        player.style.top = playerRow * 40 + "px";
         moveBox(crates);
     }
 }
