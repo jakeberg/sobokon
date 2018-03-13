@@ -28,7 +28,7 @@ for (let r = 0; r < map.length; r++) {
     for (let c = 0; c < row.length; c++) {
         let cell = row[c];
         var cellDiv = document.createElement("div");
-
+        // Makes game board where walls and storage spot divs are created
         if (cell === "B") {
             cellDiv.className = ("empty");
         } else if (cell === "W") {
@@ -39,7 +39,8 @@ for (let r = 0; r < map.length; r++) {
             cellDiv.className = ("empty spot");
         }
         board.appendChild(cellDiv);
-
+        // Creates a separate array to keep track of the boxes
+        // The coordinates of the storage spaces are stored to compare with the current box positions to determine a winning senario.
         if (cell === "B") {
             boxPosition.push("box");
         } else if (cell === "W") {
@@ -54,8 +55,8 @@ for (let r = 0; r < map.length; r++) {
             winningSpots.push(String(r) + String(c));
         } else if (cell === "S") {
             boxPosition.push(null);
-            player.style.top = r * 40 + "px";
-            player.style.left = c * 40 + "px";
+            player.style.top = r * 80 + "px";
+            player.style.left = c * 80 + "px";
             playerRow = r;
             playerCol = c;
         }
@@ -63,6 +64,7 @@ for (let r = 0; r < map.length; r++) {
     crates.push(boxPosition);
 }
 
+//event listener for directional pad
 document.addEventListener("keydown", (event) => {
     switch (event.key) {
         case "ArrowRight":
@@ -74,12 +76,12 @@ document.addEventListener("keydown", (event) => {
             break;
 
         case "ArrowUp":
-        playerMove(0, -1, 0, -2)
-        break;
+            playerMove(0, -1, 0, -2)
+            break;
 
         case "ArrowDown":
-        playerMove(0, +1, 0, +2)
-        break;
+            playerMove(0, +1, 0, +2)
+            break;
 
         default:
             console.log(event.key)
@@ -87,6 +89,8 @@ document.addEventListener("keydown", (event) => {
     checkWin();
 });
 
+// Takes values from the directional input and looks in the area around the player div 
+// and either moves, or moves and pushes a box in the crates array
 function playerMove(leftOrRight, upOrDown, boundaryCheckLR, boundaryCheckUD) {
     const checkForWall = map[playerRow + upOrDown][playerCol + leftOrRight] !== "W";
     const checkForNull = crates[playerRow + upOrDown][playerCol + leftOrRight] == null;
@@ -94,12 +98,12 @@ function playerMove(leftOrRight, upOrDown, boundaryCheckLR, boundaryCheckUD) {
 
     const checkForExtraBox = crates[playerRow + boundaryCheckUD][playerCol + boundaryCheckLR] !== "box";
     const checkForWallTwo = map[playerRow + boundaryCheckUD][playerCol + boundaryCheckLR] !== "W";
-    
+
     if (checkForWall && checkForNull) {
         playerCol += leftOrRight;
-        player.style.left = playerCol * 40 + "px";
+        player.style.left = playerCol * 80 + "px";
         playerRow += upOrDown;
-        player.style.top = playerRow * 40 +"px";
+        player.style.top = playerRow * 80 + "px";
 
     } else if (checkForWall && checkForBox && checkForExtraBox && checkForWallTwo) {
         crates[playerRow + upOrDown][playerCol + leftOrRight] = null;
@@ -107,12 +111,14 @@ function playerMove(leftOrRight, upOrDown, boundaryCheckLR, boundaryCheckUD) {
 
         playerCol += leftOrRight;
         playerRow += upOrDown;
-        player.style.left = playerCol * 40 + "px";
-        player.style.top = playerRow * 40 + "px";
+        player.style.left = playerCol * 80 + "px";
+        player.style.top = playerRow * 80 + "px";
         moveBox(crates);
     }
 }
 
+// The boxes are re-drawn after every keypress based on their current position in the crates array.
+// The coordinates are then stored in an array so that they can be compaired with the winning coordinates.
 function moveBox(boxDest) {
     reset();
     for (let x = 0; x < boxDest.length; x++) {
@@ -122,8 +128,8 @@ function moveBox(boxDest) {
             var absoluteCrates = document.createElement("div");
             if (cellOfCrateSpots === "box") {
                 absoluteCrates.className = ("box");
-                absoluteCrates.style.top = x * 40 + "px";
-                absoluteCrates.style.left = y * 40 + "px";
+                absoluteCrates.style.top = x * 80 + "px";
+                absoluteCrates.style.left = y * 80 + "px";
                 boxes.appendChild(absoluteCrates);
                 cratesSpots.push(String(x) + String(y));
             }
@@ -132,6 +138,7 @@ function moveBox(boxDest) {
 }
 moveBox(crates);
 
+// Boxes are reset before the boxes are re-drawn
 function reset() {
     cratesSpots = [];
     while (boxes.firstChild) {
@@ -139,6 +146,7 @@ function reset() {
     }
 }
 
+// If the current coordinates of all the boxes matches the coordinates of the storage spots, the player wins.
 function checkWin() {
     let cratesSpotsString = cratesSpots.join("");
     let winningSpotsString = winningSpots.join("");
