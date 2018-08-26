@@ -1,7 +1,13 @@
 html {
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Raleway', sans-serif;
     background-color: rgb(161, 217, 255);
-    background-image: url("assets/spaceBackground.png")
+    background-image: linear-gradient(to left bottom, #5ee6db, #8aebfd, #c0efff, #eaf4ff, #ffffff);
+    height: 150vh;
+}
+
+h1 {
+    text-decoration: underline;
+    font-size: 300%;
 }
 
 body {
@@ -9,37 +15,36 @@ body {
     margin-left: auto;
     margin-right: auto;
     width: 80%;
+    text-align: center;
 }
 
 #board {
     display: flex;
     position: relative;
     flex-direction: row;
+    align-content: flex-start;
     flex-wrap: wrap;
-    height: 720px;
-    width: 640px;
+    height: 450px;
     margin: auto;
 }
 
 #player {
     position: absolute;
-    background-color: rgb(252, 218, 145);
-    border: 1px solid grey;
-    width: 78px;
-    height: 78px;
-    opacity: .4;
+    background-image: linear-gradient(to bottom, #e65e79, #e9576e, #ec5063, #ed4a57, #ee444a);
+    width: 3vw;
+    height: 3vw;
+    opacity: .8;
 }
 
 .wall {
-    background-color: rgb(0, 61, 61);
-    border: 1px solid grey;
-    width: 78px;
-    height: 78px;
+    background-image: linear-gradient(to left bottom, #5eb5e6, #4895c3, #3376a1, #1c5980, #003d60);    
+    width: 3vw;
+    height: 3vw;
 }
 
 .empty {
-    width: 80px;
-    height: 80px;
+    width: 3vw;
+    height: 3vw;
 }
 
 .spot {
@@ -49,17 +54,45 @@ body {
 
 .box {
     position: absolute;
-    background-color: rgb(123, 251, 255);
-    border: 1px solid grey;
-    width: 78px;
-    height: 78px;
-    opacity: .4;
+    background-image: linear-gradient(to right top, #051937, #00476e, #007a9f, #00b4c5, #14ebdb);
+    width: 3vw;
+    height: 3vw;
+    opacity: .8;
+}
+
+.btn {
+    background-image: linear-gradient(to left bottom, #e65e5e, #f2855f, #f9ab6b, #fdcf83, #fff2a5);
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    display: inline-block;
+    font-size: 20px;
+    margin: 10px 2px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.btn-sm {
+    background-image: linear-gradient(to left bottom, #e65e5e, #f2855f, #f9ab6b, #fdcf83, #fff2a5);
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    display: inline-block;
+    font-size: 10px;
+    margin: 5px 2px;
+    cursor: pointer;
+    border-radius: 10px;
 }
 
 #win {
     display: none;
     font-size: 400%;
-    padding: 50px;
+    padding: 20px;
+    top: 35%;
+    left: 38%;
     text-align: center;
     text-transform: uppercase;
+    position: absolute;
+    background-color: rgba(51, 162, 170, 0.9);
+    border-radius: 10px;
 }

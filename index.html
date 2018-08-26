@@ -6,17 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <title>Sokoban</title>
 </head>
 
 <body>
-
+    <h1>SOKOBAN</h1>
+    <p>Push the boxes until all of the "O" spots are covered.</p>
+    <button type="button" class="chooseMap btn-sm">Map 1</button>
+    <button type="button" class="chooseMap btn-sm">Map 2</button>
     <div id="board">
         <div id="boxes"></div>
         <div id="player"></div>
     </div>
-    
+    <button id="reset" type="button" class="btn">Click to reset</button>
     <div id="win">You win!</div>
 
     <script src="script.js"></script>
