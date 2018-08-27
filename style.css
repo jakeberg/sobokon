@@ -54,7 +54,7 @@ body {
 
 .box {
     position: absolute;
-    background-image: linear-gradient(to right top, #051937, #00476e, #007a9f, #00b4c5, #14ebdb);
+    background-image: linear-gradient(to left bottom, #c000b7, #ab00b5, #9600b2, #7f00af, #6603ab);
     width: 3vw;
     height: 3vw;
     opacity: .8;
